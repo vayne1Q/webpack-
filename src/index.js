@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 let arr = [
     new Promise(()=>{}),
     new Promise(()=>{}),
