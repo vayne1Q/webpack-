@@ -35,3 +35,24 @@ babel转化es6为es5语法：
             }]] 
         }
     }, 
+
+
+
+2019-5-22：
+
+    react代码编译示例：
+
+    对于.babelrc配置文件我们配置：
+
+    { 
+        presets: [
+            ['@babel/preset-env',{    // @babel/preset-env包含了所有es6语法转化为es5语法的规则。
+                targets: {
+                    chrome: '67', // chrome67以上的浏览器版本不需要转es5语法
+                },
+                useBuiltIns: 'usage'  //  @babel/polyfill根据业务代码中出现的es6语法来做打包。减少打包的体积
+            }
+            ],
+            "@babel/preset-react"   // 对于react的代码。先用preset-react进行编译。然后用preset-env进行es5语法的转换
+        ]
+    }

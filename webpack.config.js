@@ -3,25 +3,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); // 打包之后的dist
 const CleanWebpackPlugin = require('clean-webpack-plugin');// 每次打包之前清空dist文件夹。生成新的dist文件
 const webpack = require('webpack');
 
-// {
-//     presets: [['@babel/preset-env',{    // @babel/preset-env包含了所有es6语法转化为es5语法的规则。
-//         targets: {
-//             chrome: '67', // chrome67以上的浏览器版本不需要转es5语法
-//         },
-//         useBuiltIns: 'usage'  //  @babel/polyfill根据业务代码中出现的es6语法来做打包。减少打包的体积
-//     }]] 
-// }
 
 
 module.exports = {
     mode: 'production', // 打包环境。（默认production。bundle.js代码压缩成一行）
-    devtool: 'cheap-module-eval-source-map', // 是否开启source-map
+    devtool: 'cheap-module-eval-source-map', // 是否开启source-map。module指的是对loader里面进行转换。
     devServer: { 
         contentBase: './dist',
         open: true,
         port: 8181,
-        hot: true,  // 热加载模块（css|js文件不会重新请求locahost导致刷新页面）、且热加载的文件不会被打包到dist文件夹。而是放在内存中。
-        hotOnly: true, // 热加载模块失败不会刷新页面
+        hot: true,  // 热更新模块（css|js文件不会重新请求locahost导致刷新页面）、且热加载的文件不会被打包到dist文件夹。而是放在内存中。
+        hotOnly: true, // 不支持更新，或者热更新失败不会刷新页面
     },
     entry: {
         main: './src/index.js', // 入口文件
