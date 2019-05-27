@@ -1,5 +1,5 @@
 # webpack-demo
-webpack入门配置及实例
+webpack4入门配置及实例
 
 
 2019-5-21：
@@ -41,7 +41,7 @@ babel转化es6为es5语法：
 2019-5-22：
 ======
 
-    react代码编译示例：
+    react代码用webpack编译示例：
 
     对于.babelrc配置文件我们配置：(配置文件执行顺序从下往上,从右往左)
 
@@ -57,3 +57,33 @@ babel转化es6为es5语法：
             "@babel/preset-react"   // 对于react的代码。先用preset-react进行编译。然后用preset-env进行es5语法的转换
         ]
     }
+    
+    
+    
+2019-5-27：
+======
+    Tree shaking(过滤掉未通过import导入的模块。)(Tree shaking只支持esmodule模块的引入的模式)
+    
+    开发环境下。需要在webpack.config.js文件下设置:
+    modules.exports = {
+    	mode: 'development',
+	optimization: {
+            usedExports: true,
+	},
+    }
+    
+    
+    生产环境下我们只需要将mode改成production就可以了：
+    modules.exports = {
+       mode: 'production'
+    }
+    
+package.json配置：
+
+    还需要在package.json里面的最上面设置
+    "sideEffets": false,   // 如果设置了false就是对所有import引入的模块都进行Tree shaking。但是这样会产生问题如下。
+    
+    比如在main.js里面引入了import '@babel/poly-fill' 因为他没有导出一个方法。Tree shaking就会将它自动过滤掉。导致项目打包失败或者报错。
+    这时候就需要更改配置
+    
+    "sideEffets": ["@babel/poly-fill"] // 对@babel/poly-fill不进行Tree shaking。这样就会成功了
