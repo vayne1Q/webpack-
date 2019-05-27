@@ -3,24 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); // 打包之后的dist
 const CleanWebpackPlugin = require('clean-webpack-plugin');// 每次打包之前清空dist文件夹。生成新的dist文件
 const webpack = require('webpack');
 
-
-
 module.exports = {
-    mode: 'production', // 打包环境。（默认production。bundle.js代码压缩成一行）
-    devtool: 'cheap-module-eval-source-map', // 是否开启source-map。module指的是对loader里面进行转换。
-    devServer: { 
-        contentBase: './dist',
-        open: true,
-        port: 8181,
-        hot: true,  // 热更新模块（css|js文件不会重新请求locahost导致刷新页面）、且热加载的文件不会被打包到dist文件夹。而是放在内存中。
-        hotOnly: true, // 不支持更新，或者热更新失败不会刷新页面
-    },
     entry: {
         main: './src/index.js', // 入口文件
     },
-    performance: {
-        hints:false,        
-    },  
     module: {
         rules: [
             {
@@ -67,17 +53,11 @@ module.exports = {
                     'postcss-loader',
                 ]
             },
-            // {
-            //     test: /\.vue$/,
-            //     use: {
-            //         loader: 'vue-loader',
-            //     }
-            // },
         ]
     },  
     plugins: [
         new HtmlWebpackPlugin({
-            template: 'src/index.html'
+            template: 'src/index.html' // 以这个html为模板生成dist文件下的html
         }),
         new CleanWebpackPlugin(),
         // new webpack.HotModuleReplacementPlugin(),
