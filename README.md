@@ -87,3 +87,22 @@ package.json配置：
     这时候就需要更改配置
     
     "sideEffets": ["@babel/poly-fill"] // 对@babel/poly-fill不进行Tree shaking。这样就会成功了
+    
+    
+    
+2019-5-27：
+======
+
+
+开发环境跟生产环境区分打包：
+
+    package.json配置：
+    
+    "scripts": {
+        "dev": "webpack-dev-server --config ./build/webpack.dev.js",  // 开发环境打包配置文件用的是当前目录下build文件夹下的webpack.dev.js
+        "build": "webpack --config ./build/webpack.prod.js"  // 生产环境打包配置文件用的是当前目录下build文件夹下的webpack.prod.js
+     },
+     
+     对于两个配置文件相同的部分。我们可以在build目录下创建一个webpack.common.js的文件。用来放dev.js跟prod.js相同的配置代码。
+     
+     合并导出配置文件的时候通过webpack-merge来合并当前配置文件(dev.js 或者 prod.js)与webpack.common.js的的配置项
