@@ -105,4 +105,27 @@ package.json配置：
      
      对于两个配置文件相同的部分。我们可以在build目录下创建一个webpack.common.js的文件。用来放dev.js跟prod.js相同的配置代码。
      
-     合并导出配置文件的时候通过webpack-merge来合并当前配置文件(dev.js 或者 prod.js)与webpack.common.js的的配置项
+     合并导出配置文件的时候通过webpack-merge来合并当前配置文件(dev.js 或者 prod.js)与webpack.common.js的的配置项就可以了
+
+
+
+
+2019-5-28：
+======
+
+Code Splitting(代码分割):
+
+    有两种方式：
+    
+    1、用webpack自带的代码分割的配置项(同步代码分割)
+    
+    optimization: {      // 代码分割
+        splitChunks: {
+            chunks: 'all'
+        }
+    }
+
+
+    2、 无需任何配置,会自动进行代码分割,放置到新的文件中(异步代码分割。；例如动态import)
+
+    因为动态import是测试中,直接打包会报错,所以需要babel插件babel-plugin-dynamic-import-webpack来转换。安装完打包即可。
