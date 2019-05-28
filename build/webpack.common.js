@@ -59,12 +59,17 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: 'src/index.html' // 以这个html为模板生成dist文件下的html
         }),
-        new CleanWebpackPlugin(),
+        new CleanWebpackPlugin(),     // 每次重新打包都会清空dist文件夹下的内容
         // new webpack.HotModuleReplacementPlugin(),
     ],
+    optimization: {      // 代码分割
+        splitChunks: {
+            chunks: 'all'
+        }
+    },
     output: {
         // publicPath: 'www.baidu.com', // 打包出资源的路径前缀
         filename: '[name].js', // 打包出的文件名字
-        path: path.resolve(__dirname, 'dist') // 打包出的文件夹名字（bundle）
+        path: path.resolve(__dirname, '../dist') // 打包之后的文件路径（../dist是因为我package.json什么用某配置文件打包之后。dist文件夹在build文件夹下生成。与配置文件同级）
     }
 }

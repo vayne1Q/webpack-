@@ -20,4 +20,4 @@ const devConfig = {
     },
 }
 
-module.exports = merge(commonConfig, devConfig);
+module.exports = merge(commonConfig, devConfig); // 合并webpack配置相同部分
