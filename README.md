@@ -5,7 +5,7 @@ webpack4入门配置及实例
 2019-5-21：
 ======
 
-babel转化es6为es5语法：
+通过babel转化es6为es5语法：
 
 	1.babel-loader只是沟通webpack跟babel之间的桥梁。 @babel/core为babel的核心库 。
 
@@ -62,14 +62,14 @@ babel转化es6为es5语法：
     
 2019-5-27：
 ======
-    Tree shaking(过滤掉未通过import导入的模块。)(Tree shaking只支持esmodule模块的引入的模式)
+    Tree shaking(过滤掉未通过import导入的模块。)(Tree shaking只支持esmodule模块的导入模式)
     
     开发环境下。需要在webpack.config.js文件下设置:
     modules.exports = {
-    	mode: 'development',
-	optimization: {
-            usedExports: true,
-	},
+        mode: 'development',
+        optimization: {
+           usedExports: true,
+        },
     }
     
     
@@ -81,12 +81,11 @@ babel转化es6为es5语法：
 package.json配置：
 
     还需要在package.json里面的最上面设置
-    "sideEffets": false,   // 如果设置了false就是对所有import引入的模块都进行Tree shaking。但是这样会产生问题如下。
+    "sideEffets": false,   // 如果设置了false就是对所有import引入的模块都进行Tree shaking。但是这样会产生问题。
     
     比如在main.js里面引入了import '@babel/poly-fill' 因为他没有导出一个方法。Tree shaking就会将它自动过滤掉。导致项目打包失败或者报错。
-    这时候就需要更改配置
     
-    "sideEffets": ["@babel/poly-fill"] // 对@babel/poly-fill不进行Tree shaking。这样就会成功了
+    这时候就需要更改配置："sideEffets": ["@babel/poly-fill"]   // 对@babel/poly-fill不进行Tree shaking。这样就会成功了
     
     
     
@@ -113,7 +112,7 @@ package.json配置：
 2019-5-28：
 ======
 
-Code Splitting(代码分割):
+Code Splitting(代码分割--一般用于更快的加载项目):
 
     有两种方式：
     
@@ -126,6 +125,6 @@ Code Splitting(代码分割):
     }
 
 
-    2、 无需任何配置,会自动进行代码分割,放置到新的文件中(异步代码分割。；例如动态import)
+    2、 无需任何配置,会自动进行代码分割,放置到新的文件中(异步代码分割)
 
-    因为动态import是测试中,直接打包会报错,所以需要babel插件babel-plugin-dynamic-import-webpack来转换。安装完打包即可。
+    例如动态import。动态import的语法是测试中,直接打包会报错,所以需要babel插件babel-plugin-dynamic-import-webpack来转换。安装完打包即可。
