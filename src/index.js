@@ -1,11 +1,15 @@
-function getComponent() {
-    return import('lodash').then(({default: _}) => {
-        var element = document.createElement('div');
-        element.innerHTML = _.join(['Del', 'Lee'], '-');
-        return element;
-    })
-}
+import add from './test.js';
+add(1,2)
 
-getComponent().then(element => {
-    document.body.appendChild(element);
-})
+
+// function getComponent() {
+//     return import(/* webpackChunkName:"lodash" */'lodash').then(({default: _}) => {
+//         var element = document.createElement('div');
+//         element.innerHTML = _.join(['Del', 'Lee'], '-');
+//         return element;
+//     })
+// }
+
+// getComponent().then(element => {
+//     document.body.appendChild(element);
+// })
