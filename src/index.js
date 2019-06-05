@@ -1,5 +1,8 @@
-import add from './test.js';
-add(1,2)
+document.addEventListener('click', () => {
+    import(/* webpackPreload: true */'./click.js').then(({default : func}) => {
+        func();
+    })
+});
 
 
 // function getComponent() {
