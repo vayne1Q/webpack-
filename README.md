@@ -140,6 +140,8 @@ Code Splitting(代码分割--一般用于更快的加载项目):
     optimization: {      // 代码分割
         splitChunks: {
             chunks: 'all',   // 无论同步还是异步都会进行代码分割。可以设置initial(同步)或者async(异步)
+	    
+	    	// 以下的配置是默认配置代码。不在webpack.config.js写也可以
             minSize: 0,   // 对于分割出来的代码,如果文件大小 > minSize(30000字节约等于30kb)的时候才会在dist文件夹下生成新的分割文件
             // maxSize: 0,  // 对于分割出来的代码,如果文件大小 > maxSize的话。splitChunks会进行二次分割(了解)
             minChunks: 1,  // 对引用的模块的使用的至少几次的时候才分割
@@ -161,3 +163,25 @@ Code Splitting(代码分割--一般用于更快的加载项目):
             }
         }
     },
+
+
+
+2019-6-5：
+======
+    今天主要学习了几种依赖收集插件(建议用webpack-bundle-analyzer)来生成依赖树。然后打包之后会出现stats.json。把他丢到插件里就可以生成试图了
+    
+    
+   [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer)
+
+    还有Prefetch跟Preload来提前下载资源。优化页面加载速度。但是两者会有区别
+    
+   [Prefetch/Preload](https://webpack.js.org/guides/code-splitting#prefetchingpreloading-modules)
+    
+    1.Prefetch会在核心代码加载完成之后。页面有空闲的时候才会加载。以便加快后续页面的首屏速度
+    
+      (Prefetch 加载的资源一般不是用于当前页面的，即未来很可能用到的这样一些资源，简单点说就是其他页面会用到的资源)
+    
+    2.Preload则是会跟核心代码一起加载。
+    
+      (preload主要用于预加载当前页面需要的资源)
+      
