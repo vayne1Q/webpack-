@@ -185,3 +185,28 @@ Code Splitting(代码分割--一般用于更快的加载项目):
     
       (preload主要用于预加载当前页面需要的资源)
       
+
+
+2019-6.16
+======
+    css的代码分割(单独打包一个css文件。跟js分离)：
+    
+   [mini-css-extract-plugin](https://webpack.js.org/plugins/mini-css-extract-plugin)
+    
+    注意: 1.该插件现在不支持模块热更新，不推荐在开发环境使用，影响开发效率
+          2.如果打包出来的文件。css没有分割。请检查你的tree shaking配置的optimization.usedExports。再结合packjson中的sideEffets解决问题
+    
+    使用语法：
+    const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+    plugins:
+        new MiniCssExtractPlugin({  // 被页面直接引用css文件会走filename。不是直接引用的走chunkFilename
+            filename: '[name].css', 
+            chunkFilename: '[name].chunk.css',
+        }),
+    ]
+    
+    以及css分割出来的代码压缩：
+    const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // css代码压缩
+    optimization: {
+        minimizer: [new OptimizeCSSAssetsPlugin({})],  // css代码压缩
+    },
