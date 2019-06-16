@@ -31,28 +31,6 @@ module.exports = {
                     loader: 'file-loader',
                 }
             },
-            {
-                test: /\.scss$/,  // scss处理loader顺序。从下往上。从右往左
-                use: [
-                    'style-loader', // 把css补充到head中
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            importLoaders: 2,
-                            // modules: true, // css模块化
-                        }
-                    }, // css处理各个css文件之间的关系
-                    'sass-loader', // scss转化为css
-                    'postcss-loader', // 补充浏览器厂商前缀
-                ]
-            },{
-                test: /\.css$/,  // scss处理loader顺序。从下往上。从右往左
-                use: [
-                    'style-loader', // 把css补充到head中
-                    'css-loader',
-                    'postcss-loader',
-                ]
-            },
         ]
     },  
     plugins: [
@@ -63,6 +41,7 @@ module.exports = {
         // new webpack.HotModuleReplacementPlugin(),
     ],
     optimization: {      // 代码分割
+        usedExports: true, // tree shaking对所有的模块代码都tree shaking。在packjson里的sideEffets可以进行配置修改。
         splitChunks: {
             chunks: 'all',
         }
@@ -70,6 +49,7 @@ module.exports = {
     output: {
         // publicPath: 'www.baidu.com', // 打包出资源的路径前缀
         filename: '[name].js', // 打包出的文件名字
+        chunkFilename: '[name].chunk.js',
         path: path.resolve(__dirname, '../dist') // 打包之后的文件路径（../dist是因为我package.json什么用某配置文件打包之后。dist文件夹在build文件夹下生成。与配置文件同级）
     }
 }
