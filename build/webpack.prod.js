@@ -1,5 +1,6 @@
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.common.js');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // css代码分割单独一个css文件
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // css代码压缩
 
@@ -40,6 +41,10 @@ const prodConfig = {
             filename: '[name].css', 
             chunkFilename: '[name].chunk.css',
         }),
+        new WorkboxPlugin.GenerateSW({
+            clientsClaim: true,
+            skipWaiting: true,
+        })
     ]
 }
 
