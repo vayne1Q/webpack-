@@ -210,3 +210,18 @@ Code Splitting(代码分割--一般用于更快的加载项目):
     optimization: {
         minimizer: [new OptimizeCSSAssetsPlugin({})],  // css代码压缩
     },
+
+
+2019-6.27
+=====
+   pwa(依靠缓存，离线了还能正常跑)
+    
+   主要作用于生产环境
+
+     const WorkboxPlugin = require('workbox-webpack-plugin');
+     plugins: [
+        new WorkboxPlugin.GenerateSW({
+            clientsClaim: true,
+            skipWaiting: true,
+        })
+    ]
