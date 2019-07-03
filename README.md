@@ -225,3 +225,25 @@ Code Splitting(代码分割--一般用于更快的加载项目):
             skipWaiting: true,
         })
     ]
+
+
+
+2019-7.3
+=====
+   shiming(可以理解为垫片)
+
+    例如你创建了一个jquery.js内容为：
+    export function ui(){
+      $('body').css('background', _.join(['green'], ''));
+    }
+    
+    你在打包的时候会发现这个js里面用到了$符号(jquery)跟_符号(lodash)。但是这个js文件没有引入jquery跟lodash。
+    
+    这个时候就需要shiming了。其实就是webpack的一项全局配置。
+    
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',  // 当发现模块当中$字符串的时候。webpack自动把jquery引入
+            _: 'lodash',  // 当发现模块当中_字符串的时候。webpack自动把lodash引入
+        })
+    ],
