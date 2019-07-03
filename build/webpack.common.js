@@ -39,6 +39,10 @@ module.exports = {
         }),
         new CleanWebpackPlugin(),     // 每次重新打包都会清空dist文件夹下的内容
         // new webpack.HotModuleReplacementPlugin(),
+        new webpack.ProvidePlugin({
+            $: 'jquery',  // 当发现模块当中$字符串的时候。webpack自动把jquery引入
+            _: 'lodash',
+        })
     ],
     optimization: {      // 代码分割
         usedExports: true, // tree shaking对所有的模块代码都tree shaking。在packjson里的sideEffets可以进行配置修改。
