@@ -237,7 +237,7 @@ Code Splitting(代码分割--一般用于更快的加载项目):
       $('body').css('background', _.join(['green'], ''));
     }
     
-    你在打包的时候会发现这个js里面用到了$符号(jquery)跟_符号(lodash)。但是这个js文件没有引入jquery跟lodash。
+    你在打包的时候会发现这个js里面用到了$符号(jquery)跟_符号(lodash)。但是这个js文件没有引入jquery跟lodash。打包就会报错。
     
     这个时候就需要shiming了。其实就是webpack的一项全局配置。
     
@@ -247,3 +247,5 @@ Code Splitting(代码分割--一般用于更快的加载项目):
             _: 'lodash',  // 当发现模块当中_字符串的时候。webpack自动把lodash引入
         })
     ],
+    
+    ok。完美解决！
