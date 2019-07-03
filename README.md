@@ -230,7 +230,7 @@ Code Splitting(代码分割--一般用于更快的加载项目):
 
 2019-7.3
 =====
-   shiming(可以理解为垫片)
+   1.shiming(可以理解为垫片)
 
     例如你创建了一个jquery.js内容为：
     export function ui(){
@@ -250,3 +250,34 @@ Code Splitting(代码分割--一般用于更快的加载项目):
     ],
     
     ok。完美解决！
+
+   2.typescript的打包配置：
+    
+    需要下载安装ts-loader跟typescript: npm install ts-loader tyepscript --save-dev
+    
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',  // 使用ts-lodaer
+                exclude: /node_modules/,  // 遇到node-modules文件夹不用loader转化
+            }
+        ]
+    }
+    
+    打包tyepscript的时候还需要在根目录下面创建一个tsconfig.json。如下（简单配置）
+    
+    {
+        "compilerOptions": {
+            "outDir": "./dist",  // 打包文件的路径
+            "module": "es6",  // 我们用es6的模块引入方式
+            "target": "es5",  // 打包出来的代码转化为es5的代码
+            "allowJs": true  // 允许在typescript的语法里引入js文件
+        }
+    }
+    
+   如果希望在tsx的文件里用库（lodash）的api的时候。会给予一些语法上的提示。来显示语法是否使用正确
+   
+   那么我们应该先安装库的类型文件npm i @types/lodash --save-dev
+   
+   然后在tsx的文件里引入的时候需要这样引入import * as _ from 'lodash'就可以了
