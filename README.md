@@ -334,4 +334,6 @@ Code Splitting(代码分割--一般用于更快的加载项目):
 	    }
 	};
 
+   请求到 /api/xxx 现在会被代理到请求 http://localhost:3000/xxx, 例如 /api/user 现在会被代理到请求 http://localhost:3000/user
+
    其他用法参考[Webpack-dev-server的proxy用法](https://github.com/funnycoderstar/blog/issues/42)
