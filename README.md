@@ -281,3 +281,57 @@ Code Splitting(代码分割--一般用于更快的加载项目):
    那么我们应该先安装库的类型文件npm i @types/lodash --save-dev
    
    然后在tsx的文件里引入的时候需要这样引入import * as _ from 'lodash'就可以了
+   
+   
+2019-7.8
+=====
+   Webpack-dev-server的proxy用法(解决开发环境的跨域问题)
+
+    下面简单介绍一下三个经常使用的场景
+    
+    
+   **使用一:**
+   
+    module.exports = {
+        devServer: {
+            proxy: {
+                '/api': 'http://localhost:3000'
+            }
+        }
+    };
+    
+   请求到 /api/xxx 现在会被代理到请求 http://localhost:3000/api/xxx, 例如 /api/user 现在会被代理到请求 http://localhost:3000/api/user
+   
+   
+   **使用二:**
+   
+   如果你想要代码多个路径代理到同一个target下, 你可以使用由一个或多个「具有 context 属性的对象」构成的数组：
+   
+    module.exports = {
+        //...
+        devServer: {
+            proxy: [{
+                context: ['/auth', '/api'],
+                target: 'http://localhost:3000',
+            }]
+        }
+    };
+    
+    
+   **使用三:**
+   
+   如果你不想始终传递 /api ，则需要重写路径：
+      
+	module.exports = {
+	    //...
+	    devServer: {
+		proxy: {
+		    '/api': {
+			target: 'http://localhost:3000',
+			pathRewrite: {'^/api' : ''}
+		    }
+		}
+	    }
+	};
+
+   其他用法参考[Webpack-dev-server的proxy用法](https://github.com/funnycoderstar/blog/issues/42)
