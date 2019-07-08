@@ -20,7 +20,7 @@ webpack4入门配置及实例
    [@babel/runtime](https://www.babeljs.cn/docs/babel-plugin-transform-runtime)
    
    
-详细配置
+.babelrc简单配置：
 
     {
         test: /\.js$/,
