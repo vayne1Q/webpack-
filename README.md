@@ -7,7 +7,9 @@ webpack4入门配置及实例
 
 通过babel转化es6为es5语法：
 
-	1.babel-loader只是沟通webpack跟babel之间的桥梁。 @babel/core为babel的核心库 。
+	1.babel-loader只是沟通webpack跟babel之间的桥梁。 @babel/core为babel的核心库 。babel 的核心 api 都在这个模块(@babel/core)中。也就是这个
+	
+	模块会把我们写的 js 代码抽象成 AST 树。 然后再将 plugins 转译好的内容解析为 js 代码。
 
 	2.babel/preset-env包含了所有es6语法转化为es5语法的规则。
 
@@ -31,11 +33,16 @@ webpack4入门配置及实例
                 targets: {
                     chrome: '67',   // chrome67以上的浏览器版本不需要转es5语法
                 },
+		    // “usage” | “entry” | false, defaults to false.
                 useBuiltIns: 'usage'    //  @babel/polyfill根据业务代码中出现的es6语法来做打包。减少打包的体积
             }]] 
         }
     }, 
 
+    useBuiltIns 参数说明：
+    1. false: 不对 polyfills 做任何操作
+    2. entry: 根据 target 中浏览器版本的支持，将 polyfills 拆分引入，仅引入有浏览器不支持的 polyfill
+    3. usage(新)：检测代码中 ES6/7/8 等的使用情况，仅仅加载代码中用到的 polyfills
 
 
 2019-5-22：
