@@ -344,3 +344,24 @@ Code Splitting(代码分割--一般用于更快的加载项目):
    请求到 /api/xxx 现在会被代理到请求 http://localhost:3000/xxx, 例如 /api/user 现在会被代理到请求 http://localhost:3000/user
 
    其他用法参考[Webpack-dev-server的proxy用法](https://github.com/funnycoderstar/blog/issues/42)
+   
+   
+2019-7.9
+=====
+    多页面打包配置：
+    entry: {
+        main: './src/index.js', // 入口文件
+        List: './src/list.js' // 多入口文件
+    }
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: 'src/index.html', // 以这个html为模板生成dist文件下的html
+            filename: 'index.html',
+            chunks: ['vendors~List~main', 'main'] // 这个html引入的js有哪些需要手动声明
+        }),
+        new HtmlWebpackPlugin({
+            template: 'src/index.html', // 以这个html为模板生成dist文件下的html
+            filename: 'List.html',
+            chunks: ['vendors~List~main', 'List'] // 这个html引入的js有哪些需要手动声明
+        })
+    ]  
