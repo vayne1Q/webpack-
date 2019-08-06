@@ -5,7 +5,7 @@ class App extends Component{
     render(){
         return (
             <div>
-                <div>This is Home page</div>
+                <div>This is List page</div>
             </div>
         )
     }

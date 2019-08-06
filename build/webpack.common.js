@@ -6,6 +6,10 @@ const webpack = require('webpack');
 module.exports = {
     entry: {
         main: './src/index.js', // 入口文件
+        List: './src/list.js' // 多入口文件
+    },
+    resolve: {
+        extensions: ['.js', '.jsx']
     },
     module: {
         rules: [
@@ -35,7 +39,14 @@ module.exports = {
     },  
     plugins: [
         new HtmlWebpackPlugin({
-            template: 'src/index.html' // 以这个html为模板生成dist文件下的html
+            template: 'src/index.html', // 以这个html为模板生成dist文件下的html
+            filename: 'index.html',
+            chunks: ['vendors~List~main', 'main'] // 这个html引入的js有哪些
+        }),
+        new HtmlWebpackPlugin({
+            template: 'src/index.html', // 以这个html为模板生成dist文件下的html
+            filename: 'List.html',
+            chunks: ['vendors~List~main', 'List']
         }),
         new CleanWebpackPlugin(),     // 每次重新打包都会清空dist文件夹下的内容
         // new webpack.HotModuleReplacementPlugin(),
