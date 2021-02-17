@@ -50,8 +50,9 @@ module.exports = {
         }),
         new CleanWebpackPlugin(),     // 每次重新打包都会清空dist文件夹下的内容
         // new webpack.HotModuleReplacementPlugin(),
+        // 每一个模块都注入这两个变量作为局部变量
         new webpack.ProvidePlugin({
-            $: 'jquery',  // 当发现模块当中$字符串的时候。webpack自动把jquery引入
+            $: 'jquery', 
             _: 'lodash',
         })
     ],
