@@ -1,5 +1,5 @@
 const path = require('path')
-const { getOptions } = require('loader-utils')
+const { getOptions, interpolateName } = require('loader-utils')
 const postcss = require('postcss')
 const Spritesmith = require('spritesmith')
 const Tokenizer = require('css-selector-tokenizer')
@@ -51,10 +51,15 @@ function loader(inputSource) {
         })
     }
   }
+
   let postcssOptions = {
-    spriteFileName: options.outputPath + options.filename,
+    // images/
+    // sprite
+    // png|jpg|jpeg
+    spriteFileName: `${options.outputPath}${options.basename}.${options.ext}`,
     rules: []
   }
+
   let pipeline = postcss([createPlugin(postcssOptions)])
   pipeline
     .process(inputSource, {
@@ -72,19 +77,32 @@ function loader(inputSource) {
           src: sprites
         },
         (err, spriteResult) => {
+          // 每一个css文件用到的图片就打包成雪碧图。所以要重命名
+          const outputFileName = interpolateName(
+            this,
+            `${options.basename}.[hash:8].${options.ext}`,
+            {
+              content: spriteResult.image
+            }
+          )
+
           let coordinates = spriteResult.coordinates
           Object.keys(coordinates).forEach((key, index) => {
-            cssStr = cssStr.replace(
-              `_BACKGROUND_POSITION_${index}_`,
-              `-${coordinates[key].x}px  -${coordinates[key].y}px`
-            )
+            cssStr = cssStr
+              .replace(
+                `_BACKGROUND_POSITION_${index}_`,
+                `-${coordinates[key].x}px  -${coordinates[key].y}px`
+              )
+              .replace(`${options.basename}.${options.ext}`, outputFileName)
           })
+
           loaderContext.emitFile(
-            postcssOptions.spriteFileName,
+            options.outputPath + outputFileName,
             spriteResult.image
           )
+
           // callback(null, `module.exports = ${JSON.stringify(cssStr)}`)
-          callback(null, cssStr, options)
+          callback(null, cssStr, { filename: outputFileName })
         }
       )
     })
