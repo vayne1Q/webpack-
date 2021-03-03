@@ -10,7 +10,6 @@ function loader(source) {
 }
 
 loader.pitch = (remainingRequest, previousRequest, data) => {
-  console.log(stringifyRequest(this, '!!' + remainingRequest), remainingRequest)
   let script = `
     let style = document.createElement('style');
     style.innerHTML = require(${stringifyRequest(
