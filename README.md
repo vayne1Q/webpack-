@@ -151,9 +151,9 @@ Code Splitting(代码分割--一般用于更快的加载项目):
 	    	// 以下的配置是默认配置代码。不在webpack.config.js写也可以
             minSize: 0,   // 对于分割出来的代码,如果文件大小 > minSize(30000字节约等于30kb)的时候才会在dist文件夹下生成新的分割文件
             // maxSize: 0,  // 对于分割出来的代码,如果文件大小 > maxSize的话。splitChunks会进行二次分割(了解)
-            minChunks: 1,  // 用来限制入口的拆分数量
+            minChunks: 1,  // 对引用的模块的使用的至少几次的时候才分割
             maxAsyncRequests: 5, // 用来限制异步模块内部的并行最大请求数的，说白了你可以理解为是每个模块import()它里面的最大并行请求数量。
-            maxInitialRequests: 3, // 对入口文件,最多分割出3个js文件
+            maxInitialRequests: 3, // 用来限制入口的拆分数量
             automaticNameDelimiter: '~', // 生成分割文件的连接符号
             name: true, // 可以使用name进行重命名
             cacheGroups: {
